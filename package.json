@@ -9,5 +9,7 @@
   "author": "Eduardo Garcia (@thewarpaint)",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.13.4",
+    "express-session": "^1.13.0"
   }
 }
