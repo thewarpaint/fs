@@ -1,0 +1,26 @@
+{
+  "browser": false,
+  "bitwise": true,
+  "camelcase": true,
+  "curly": true,
+  "eqeqeq": true,
+  "esnext": true,
+  "globalstrict": true,
+  "immed": true,
+  "indent": 2,
+  "latedef": true,
+  "maxlen": 110,
+  "newcap": true,
+  "noarg": true,
+  "quotmark": "single",
+  "regexp": true,
+  "smarttabs": true,
+  "strict": true,
+  "trailing": true,
+  "undef": true,
+  "unused": true,
+  "globals": {
+    "console": true,
+    "require": true
+  }
+}

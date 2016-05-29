@@ -1,0 +1,13 @@
+{
+  "name": "falcon-social",
+  "version": "1.0.0",
+  "description": "Falcon Social Assignment",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eduardo Garcia (@thewarpaint)",
+  "license": "ISC",
+  "dependencies": {
+  }
+}
