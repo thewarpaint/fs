@@ -1,0 +1,40 @@
+<a href="#/">« Back to home</a>
+
+<h2>Reach</h2>
+
+<p ng-bind="reach.message"></p>
+
+<table>
+  <thead>
+    <tr>
+      <th rowspan="2">Index</th>
+      <th colspan="2">Post impressions</th>
+      <th colspan="2">Post impressions organic</th>
+      <th colspan="2">Post impressions viral</th>
+      <th colspan="2">Post impressions paid</th>
+    </tr>
+    <tr>
+      <th>Value</th>
+      <th>Timestamp</th>
+      <th>Value</th>
+      <th>Timestamp</th>
+      <th>Value</th>
+      <th>Timestamp</th>
+      <th>Value</th>
+      <th>Timestamp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in reach.list">
+      <td ng-bind="$index"></td>
+      <td ng-bind="item.post_impressions[0].value"></td>
+      <td ng-bind="item.post_impressions[0].timestamp"></td>
+      <td ng-bind="item.post_impressions_organic[0].value"></td>
+      <td ng-bind="item.post_impressions_organic[0].timestamp"></td>
+      <td ng-bind="item.post_impressions_viral[0].value"></td>
+      <td ng-bind="item.post_impressions_viral[0].timestamp"></td>
+      <td ng-bind="item.post_impressions_paid[0].value"></td>
+      <td ng-bind="item.post_impressions_paid[0].timestamp"></td>
+    </tr>
+  </tbody>
+</table>

@@ -62,6 +62,19 @@ function getAPIModelFromJSModel(data) {
 
 angular
   .module('falconSocialApp')
+  .controller('ReachListController', ['ReachResource', function (ReachResource) {
+    this.init = function () {
+      this.list = [];
+
+      ReachResource.query().$promise.then(function (list) {
+        this.list = list;
+      }.bind(this), function () {
+        this.message = 'Error retrieving the Reach list';
+      }.bind(this));
+    };
+
+    this.init();
+  }])
   .controller('ReachNewController', ['ReachResource', function (ReachResource) {
     this.init = function () {
       this.newItem = getNewItem();
