@@ -8,3 +8,4 @@
   index implementation), as well as keep DELETE operations idempotent
 + Add PATCH support for partial updates
 + Add testing to both backend and frontend
++ Add support for HTML5 routing

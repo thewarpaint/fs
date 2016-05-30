@@ -1,6 +1,7 @@
 'use strict';
 
-const app = require('express')(),
+const express = require('express'),
+    app = express(),
     http = require('http').Server(app),
     json = require('body-parser').json(),
     session = require('express-session'),
@@ -25,6 +26,7 @@ let Server = {
 
     app.use(json);
     app.use(this.loadFixtures);
+    app.use('/app', express.static('client'));
 
     this.addRestEndpoints();
 

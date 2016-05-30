@@ -1,5 +1,5 @@
 {
-  "browser": false,
+  "browser": true,
   "bitwise": true,
   "camelcase": true,
   "curly": true,
@@ -20,6 +20,7 @@
   "undef": true,
   "unused": true,
   "globals": {
+    "angular": true,
     "console": true,
     "require": true
   }
