@@ -1,5 +1,16 @@
 # Falcon Social Assignment
 
+## Getting started
+
+Install the Node dependencies and run the server:
+
+```bash
+$ npm install
+$ node app.js
+```
+
+Then visit [localhost:3000/app/](http://localhost:3000/app/) on your browser to see the client app.
+
 ## Future work
 
 + Use a proper database, not in-memory storage
