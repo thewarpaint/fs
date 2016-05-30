@@ -9,3 +9,5 @@
 + Add PATCH support for partial updates
 + Add testing to both backend and frontend
 + Add support for HTML5 routing
++ Separate JS code into modules and controllers, etc., then add Gulp workflow to concatenate all files
++ Display notifications in a better way

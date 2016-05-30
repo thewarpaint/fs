@@ -1,0 +1,69 @@
+<a href="#/">« Back to home</a>
+
+<h2>Reach</h2>
+
+<form ng-submit="reach.onSubmit()">
+  <h3>Create new Reach item</h3>
+
+  <p ng-bind="reach.message"></p>
+
+  <fieldset>
+    <legend>Post impressions</legend>
+
+    <label for="post-impressions-value-field">Value</label>
+    <input type="number" min="0" id="post-impressions-value-field" name="post-impressions-value"
+      ng-model="reach.newItem.postImpressions.value">
+
+    <label for="post-impressions-date-field">Timestamp</label>
+    <input type="date" id="post-impressions-date-field" name="post-impressions-date"
+      ng-model="reach.newItem.postImpressions.date">
+    <input type="time" id="post-impressions-time-field" name="post-impressions-time"
+      ng-model="reach.newItem.postImpressions.time">
+    <button type="button" ng-click="reach.copyDateAndTime(reach.newItem)">Copy timestamp to all entries
+    </button>
+  </fieldset>
+
+  <fieldset>
+    <legend>Post impressions organic</legend>
+
+    <label for="post-impressions-organic-value-field">Value</label>
+    <input type="number" min="0" id="post-impressions-organic-value-field"
+      name="post-impressions-organic-value" ng-model="reach.newItem.postImpressionsOrganic.value">
+
+    <label for="post-impressions-organic-date-field">Timestamp</label>
+    <input type="date" id="post-impressions-organic-date-field" name="post-impressions-organic-date"
+      ng-model="reach.newItem.postImpressionsOrganic.date">
+    <input type="time" id="post-impressions-organic-time-field" name="post-impressions-organic-time"
+      ng-model="reach.newItem.postImpressionsOrganic.time">
+  </fieldset>
+
+  <fieldset>
+    <legend>Post impressions viral</legend>
+
+    <label for="post-impressions-viral-value-field">Value</label>
+    <input type="number" min="0" id="post-impressions-viral-value-field" name="post-impressions-viral-value"
+      ng-model="reach.newItem.postImpressionsViral.value">
+
+    <label for="post-impressions-viral-date-field">Timestamp</label>
+    <input type="date" id="post-impressions-viral-date-field" name="post-impressions-viral-date"
+      ng-model="reach.newItem.postImpressionsViral.date">
+    <input type="time" id="post-impressions-viral-time-field" name="post-impressions-viral-time"
+      ng-model="reach.newItem.postImpressionsViral.time">
+  </fieldset>
+
+  <fieldset>
+    <legend>Post impressions paid</legend>
+
+    <label for="post-impressions-paid-value-field">Value</label>
+    <input type="number" min="0" id="post-impressions-paid-value-field" name="post-impressions-paid-value"
+      ng-model="reach.newItem.postImpressionsPaid.value">
+
+    <label for="post-impressions-paid-date-field">Timestamp</label>
+    <input type="date" id="post-impressions-paid-date-field" name="post-impressions-paid-date"
+      ng-model="reach.newItem.postImpressionsPaid.date">
+    <input type="time" id="post-impressions-paid-time-field" name="post-impressions-paid-time"
+      ng-model="reach.newItem.postImpressionsPaid.time">
+  </fieldset>
+
+  <button type="submit">Create</button>
+</form>
