@@ -14,22 +14,22 @@ function cloneDate(date) {
 
 function getNewItem() {
   return {
-    postImpressions: {
+    post_impressions: {
       value: 0,
       date: getDefaultDate(),
       time: getDefaultDateForTime()
     },
-    postImpressionsOrganic: {
+    post_impressions_organic: {
       value: 0,
       date: getDefaultDate(),
       time: getDefaultDateForTime()
     },
-    postImpressionsViral: {
+    post_impressions_viral: {
       value: 0,
       date: getDefaultDate(),
       time: getDefaultDateForTime()
     },
-    postImpressionsPaid: {
+    post_impressions_paid: {
       value: 0,
       date: getDefaultDate(),
       time: getDefaultDateForTime()
@@ -43,18 +43,18 @@ function twoPad(number) {
 
 function getTimestampStringFromJSModel(data) {
   return data.date.getFullYear() + '-' + twoPad(data.date.getMonth() + 1) + '-' +
-    twoPad(data.date.getDate()) + 'T' + twoPad(data.time.getHours()) + ':' + twoPad(data.time.getMinutes()) +
-    ':' + twoPad(data.time.getSeconds()) + '.000Z';
+    twoPad(data.date.getDate()) + 'T' + twoPad(data.time.getHours()) + ':' +
+    twoPad(data.time.getMinutes()) + ':' + twoPad(data.time.getSeconds()) + '.000Z';
 }
 
 function getAPIModelFromJSModel(data) {
   var model = {};
 
   Object.keys(data).forEach(function (key) {
-    model[key] = {
+    model[key] = [{
       value: data[key].value,
       timestamp: getTimestampStringFromJSModel(data[key])
-    };
+    }];
   });
 
   return model;
@@ -63,15 +63,17 @@ function getAPIModelFromJSModel(data) {
 angular
   .module('falconSocialApp')
   .controller('ReachNewController', ['ReachResource', function (ReachResource) {
-    this.newItem = getNewItem();
-    this.message = '';
+    this.init = function () {
+      this.newItem = getNewItem();
+      this.message = '';
+    };
 
     this.copyDateAndTime = function (item) {
-      var keys = ['postImpressionsOrganic', 'postImpressionsViral', 'postImpressionsPaid'];
+      var keys = ['post_impressions_organic', 'post_impressions_viral', 'post_impressions_paid'];
 
       keys.forEach(function (key) {
-        item[key].date = cloneDate(item.postImpressions.date);
-        item[key].time = cloneDate(item.postImpressions.time);
+        item[key].date = cloneDate(item.post_impressions.date);
+        item[key].time = cloneDate(item.post_impressions.time);
       });
     };
 
@@ -83,6 +85,8 @@ angular
         this.message = 'New Reach item was created successfully!';
       }.bind(this), function () {
         this.message = 'Error creating a new Reach item';
-      });
+      }.bind(this));
     };
+
+    this.init();
   }]);
