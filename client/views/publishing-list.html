@@ -1,0 +1,58 @@
+<a href="#/">« Back to home</a>
+
+<h2>Publishing</h2>
+
+<p ng-bind="reach.message"></p>
+
+<div ng-repeat="item in publishing.list" style="border-top: 1px solid grey;">
+  <div ng-show="item.content.id">Id: {{ item.content.id }}</div>
+  <div ng-show="item.content.message">Message: {{ item.content.message }}</div>
+  <div ng-show="item.content.network">Network: {{ item.content.network }}</div>
+  <div ng-show="item.content.postType">Post type: {{ item.content.postType }}</div>
+  <div ng-show="item.content.media">Media:
+    <a ng-href="{{ item.content.media.url }}" ng-bind="item.content.media.fileName"></a></div>
+  <div ng-show="item.content.status">Status: {{ item.content.status }}</div>
+  <div ng-show="item.content.scheduled">Scheduled at: {{ item.content.scheduled }}</div>
+
+  <div ng-show="item.tags.length">
+    Tags:
+    <ul>
+      <li ng-repeat="tag in item.tags" ng-bind="tag"></li>
+    </ul>
+  </div>
+
+  <div ng-show="item.channels.length">
+    Channels:
+    <ul>
+      <li ng-repeat="channel in item.channels" ng-bind="channel.name"></li>
+    </ul>
+  </div>
+
+  <div ng-show="item.geo.countries.length">
+    Countries:
+    <ul>
+      <li ng-repeat="country in item.geo.countries" ng-bind="country.value"></li>
+    </ul>
+  </div>
+
+  <div ng-show="item.geo.languages.length">
+    Languages:
+    <ul>
+      <li ng-repeat="language in item.geo.languages" ng-bind="language.value"></li>
+    </ul>
+  </div>
+
+  <div ng-show="item.geo.cities.length">
+    Cities:
+    <ul>
+      <li ng-repeat="city in item.geo.cities" ng-bind="city.value"></li>
+    </ul>
+  </div>
+
+  <div ng-show="item.geo.regions.length">
+    Regions:
+    <ul>
+      <li ng-repeat="region in item.geo.regions" ng-bind="region.value"></li>
+    </ul>
+  </div>
+</div>

@@ -102,4 +102,17 @@ angular
     };
 
     this.init();
+  }])
+  .controller('PublishingListController', ['PublishingResource', function (PublishingResource) {
+    this.init = function () {
+      this.list = [];
+
+      PublishingResource.query().$promise.then(function (list) {
+        this.list = list;
+      }.bind(this), function () {
+        this.message = 'Error retrieving the Reach list';
+      }.bind(this));
+    };
+
+    this.init();
   }]);
