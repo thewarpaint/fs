@@ -127,14 +127,22 @@ angular
 
     this.init();
   }])
-  .controller('PublishingListController', ['PublishingResource', function (PublishingResource) {
+  .controller('PublishingListController', ['PublishingResource', 'Socket',
+      function (PublishingResource, Socket) {
     this.init = function () {
       this.list = [];
+      this.update();
 
+      Socket.on('publishing.update', function () {
+        this.update();
+      }.bind(this));
+    };
+
+    this.update = function () {
       PublishingResource.query().$promise.then(function (list) {
         this.list = list;
       }.bind(this), function () {
-        this.message = 'Error retrieving the Reach list';
+        this.message = 'Error retrieving the Publishing list';
       }.bind(this));
     };
 
