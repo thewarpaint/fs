@@ -12,7 +12,7 @@ function cloneDate(date) {
   return new Date(date.getTime());
 }
 
-function getNewItem() {
+function getNewReachItem() {
   return {
     post_impressions: {
       value: 0,
@@ -77,7 +77,7 @@ angular
   }])
   .controller('ReachNewController', ['ReachResource', function (ReachResource) {
     this.init = function () {
-      this.newItem = getNewItem();
+      this.newItem = getNewReachItem();
       this.message = '';
     };
 
@@ -94,7 +94,7 @@ angular
       this.message = '';
 
       ReachResource.save(getAPIModelFromJSModel(this.newItem)).$promise.then(function () {
-        this.newItem = getNewItem();
+        this.newItem = getNewReachItem();
         this.message = 'New Reach item was created successfully!';
       }.bind(this), function () {
         this.message = 'Error creating a new Reach item';
