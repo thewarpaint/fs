@@ -1,0 +1,97 @@
+<a href="#/">« Back to home</a>
+
+<h2>Publishing</h2>
+
+<form ng-submit="publishing.onSubmit()">
+  <h3>Create new Publishing item</h3>
+
+  <p ng-bind="publishing.message"></p>
+
+  <label for="id-field">Id</label>
+  <input type="text" id="id-field" ng-model="publishing.item.id">
+
+  <fieldset>
+    <legend>Content</legend>
+
+    <label for="content-message-field">Message</label>
+    <textarea rows="8" cols="40" id="content-message-field"
+      ng-model="publishing.item.content.message"></textarea>
+
+    <label for="content-network-field">Network</label>
+    <select id="content-network-field" ng-model="publishing.item.content.network"
+      ng-options="network.id as network.label for network in publishing.networks">
+    </select>
+
+    <label for="content-post-type-field">Post type</label>
+    <select id="content-post-type-field" ng-model="publishing.item.content.postType"
+      ng-options="postType.id as postType.label for postType in publishing.postTypes"></select>
+
+    <label for="content-media-filename-field">Media filename</label>
+    <input type="text" id="content-media-filename-field" ng-model="publishing.item.content.media.fileName">
+
+    <label for="content-media-url-field">Media URL</label>
+    <input type="url" id="content-media-url-field" ng-model="publishing.item.content.media.url">
+  </fieldset>
+
+  <label for="content-media-scheduled-field">Scheduled at</label>
+  <input type="datetime-local" id="scheduled-field" ng-model="publishing.item.scheduled">
+
+  <label for="status-field">Status</label>
+  <select id="status-field" ng-model="publishing.item.status"
+    ng-options="status.id as status.label for status in publishing.statuses"></select>
+
+  <label for="tags-field">Tags (separate with commas)</label>
+  <input type="text" id="tags-field" ng-model="publishing.item.tags">
+
+  <fieldset>
+    <legend>Geo</legend>
+
+    <div>
+      <label>Countries</label>
+      <button type="button" ng-click="publishing.addGeoEntry('countries')">Add country entry</button>
+      <ul>
+        <li ng-repeat="country in publishing.item.geo.countries">
+          <select ng-model="publishing.item.geo.countries[$index]"
+            ng-options="country as country.value for country in publishing.countries"></select>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <label>Languages</label>
+      <button type="button" ng-click="publishing.addGeoEntry('languages')">Add language entry</button>
+      <ul>
+        <li ng-repeat="language in publishing.item.geo.languages">
+          <select ng-model="publishing.item.geo.languages[$index]"
+          ng-options="language as language.value for language in publishing.languages"></select>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <label>Cities</label>
+      <button type="button" ng-click="publishing.addGeoEntry('cities')">Add city entry</button>
+      <ul>
+        <li ng-repeat="city in publishing.item.geo.cities">
+          <select ng-model="publishing.item.geo.cities[$index]"
+          ng-options="city as city.value for city in publishing.cities"></select>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <label>Regions</label>
+      <button type="button" ng-click="publishing.addGeoEntry('regions')">Add region entry</button>
+      <ul>
+        <li ng-repeat="region in publishing.item.geo.regions">
+          <select ng-model="publishing.item.geo.regions[$index]"
+          ng-options="region as region.value for region in publishing.regions"></select>
+        </li>
+      </ul>
+    </div>
+  </fieldset>
+
+  <button type="submit">Create</button>
+</form>
+
+{{ publishing.item | json }}

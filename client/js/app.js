@@ -13,6 +13,11 @@ angular
           controller: 'PublishingListController',
           controllerAs: 'publishing'
         })
+        .when('/publishing/new', {
+          templateUrl: 'views/publishing-new.html',
+          controller: 'PublishingNewController',
+          controllerAs: 'publishing'
+        })
         .when('/reach', {
           templateUrl: 'views/reach-list.html',
           controller: 'ReachListController',

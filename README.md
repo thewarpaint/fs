@@ -22,3 +22,5 @@ Then visit [localhost:3000/app/](http://localhost:3000/app/) on your browser to 
 + Add support for HTML5 routing
 + Separate JS code into modules and controllers, etc., then add Gulp workflow to concatenate all files
 + Display notifications in a better way
++ Standardize API naming convention (`snake_case` vs `camelCase`)
++ Add a proper way to handle comma-separated tags like Select2

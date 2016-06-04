@@ -37,6 +37,30 @@ function getNewReachItem() {
   };
 }
 
+function getNewPublishingItem() {
+  return {
+    content: {
+      media: {
+        fileName: '',
+        url: ''
+      },
+      message: '',
+      network: null,
+      postType: null,
+    },
+    geo: {
+      cities: [{}],
+      countries: [{}],
+      languages: [{}],
+      regions: [{}]
+    },
+    id: null,
+    scheduled: null,
+    status: null,
+    tags: ''
+  };
+}
+
 function twoPad(number) {
   return number > 9 ? number : '0' + number;
 }
@@ -113,6 +137,151 @@ angular
         this.message = 'Error retrieving the Reach list';
       }.bind(this));
     };
+
+    this.init();
+  }])
+  .controller('PublishingNewController', ['PublishingResource', function (PublishingResource) {
+    this.statuses = [
+      {
+        id: 'draft',
+        label: 'Draft'
+      },
+      {
+        id: 'scheduled',
+        label: 'Scheduled'
+      },
+      {
+        id: 'published',
+        label: 'Published'
+      }
+    ];
+
+    this.postTypes = [
+      {
+        id: 'photo',
+        label: 'Photo'
+      },
+      {
+        id: 'link',
+        label: 'Link'
+      },
+      {
+        id: 'text',
+        label: 'Text'
+      }
+    ];
+
+    this.networks = [
+      {
+        id: 'facebook',
+        label: 'Facebook'
+      },
+      {
+        id: 'google+',
+        label: 'Google+'
+      },
+      {
+        id: 'twitter',
+        label: 'Twitter'
+      }
+    ];
+
+    this.countries = [
+      {
+        key: '134',
+        value: 'Afghanistan'
+      },
+      {
+        key: '2',
+        value: 'Hungary'
+      },
+      {
+        key: '63',
+        value: 'Denmark'
+      },
+      {
+        key: '9',
+        value: 'Italy'
+      }
+    ];
+
+    this.languages = [
+      {
+        key: '31',
+        value: 'Afrikaans'
+      },
+      {
+        key: '1',
+        value: 'English'
+      },
+      {
+        key: '54',
+        value: 'German'
+      }
+    ];
+
+    this.cities = [
+      {
+        key: '1',
+        value: 'Washington'
+      },
+      {
+        key: '2',
+        value: 'Copenhague'
+      },
+      {
+        key: '3',
+        value: 'Tokio'
+      }
+    ];
+
+    this.regions = [
+      {
+        key: '1',
+        value: 'North America'
+      },
+      {
+        key: '2',
+        value: 'Europe'
+      },
+      {
+        key: '3',
+        value: 'Asia'
+      }
+    ];
+
+    this.channels = [
+      {
+        id: 433104606739910,
+        name: 'Konfirmanden'
+      }
+    ];
+
+    this.init = function () {
+      this.item = getNewPublishingItem();
+    };
+
+    this.addGeoEntry = function (key) {
+      this.item.geo[key].push({});
+    };
+
+    this.onSubmit = function () {
+      this.message = '';
+
+      // Generate tags from a trimmed comma-separated string.
+      this.item.tags = this.item.tags.split(/\s*,\s*/).filter(function (tag) {
+        return tag.length;
+      });
+
+      PublishingResource.save(this.item).$promise.then(function () {
+        this.item = getNewPublishingItem();
+        this.message = 'New Publishing item was created successfully!';
+      }.bind(this), function () {
+        this.message = 'Error creating a new Publishing item';
+      }.bind(this));
+    };
+
+    this.init();
 
     this.init();
   }]);
