@@ -5,13 +5,13 @@
 <p ng-bind="reach.message"></p>
 
 <div ng-repeat="item in publishing.list" style="border-top: 1px solid grey;">
-  <div ng-show="item.content.id">Id: {{ item.content.id }}</div>
+  <div ng-show="item.id">Id: {{ item.id }}</div>
   <div ng-show="item.content.message">Message: {{ item.content.message }}</div>
   <div ng-show="item.content.network">Network: {{ item.content.network }}</div>
   <div ng-show="item.content.postType">Post type: {{ item.content.postType }}</div>
   <div ng-show="item.content.media">Media:
     <a ng-href="{{ item.content.media.url }}" ng-bind="item.content.media.fileName"></a></div>
-  <div ng-show="item.content.status">Status: {{ item.content.status }}</div>
+  <div ng-show="item.status">Status: {{ item.status }}</div>
   <div ng-show="item.content.scheduled">Scheduled at: {{ item.content.scheduled }}</div>
 
   <div ng-show="item.tags.length">
