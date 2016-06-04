@@ -3,6 +3,7 @@
 const express = require('express'),
     app = express(),
     http = require('http').Server(app),
+    io = require('socket.io')(http),
     json = require('body-parser').json(),
     session = require('express-session'),
     settings = require('./settings.json'),
@@ -30,6 +31,10 @@ let Server = {
 
     this.addRestEndpoints();
 
+    io.on('connection', function(socket) {
+      console.log('A new user connected!');
+    });
+
     http.listen(settings.port, function() {
       console.log(`Listening on *:${ settings.port }`);
     });
@@ -55,6 +60,7 @@ let Server = {
 
     app.post('/publishing', function(request, response) {
       request.session.publishing.push(request.body);
+      io.emit('publishing.update');
 
       response.status(200).send('OK');
     });
