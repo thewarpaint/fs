@@ -1,4 +1,4 @@
-// Adapted from http://bl.ocks.org/mbostock/3884955
+// Adapted from http://bl.ocks.org/mbostock/3884955, http://bl.ocks.org/d3noob/7030f35b72de721622b8
 'use strict';
 
 angular
@@ -29,11 +29,13 @@ angular
               .scale(y)
               .orient('left'),
             line = d3.svg.line()
-              .interpolate('basis')
+              .interpolate('linear')
               .x(function (d) { return x(d.date); })
               .y(function (d) { return y(d.value); }),
             series,
-            svg;
+            svg,
+            legend,
+            firstTime = true;
 
         svg = d3.select(element[0])
           .append('svg')
@@ -48,7 +50,6 @@ angular
           var timeseries;
 
           if(list.length) {
-
             list.forEach(function (d) {
               reachKeys.forEach(function (key) {
                 d[key][0].timestamp = parseDate(d[key][0].timestamp);
@@ -85,47 +86,60 @@ angular
               })
             ]);
 
-            svg
-              .append('g')
-                .attr('class', 'x axis')
-                .attr('transform', 'translate(0,' + height + ')')
-                .call(xAxis);
+            if(firstTime) {
+              timeseries.forEach(function (series) {
+                svg
+                  .append('path')
+                    .attr('class', 'line line-' + series.name)
+                    .attr('d', line(series.values))
+                    .attr('data-legend', reachDict[series.name])
+                    .style('stroke', color(series.name));
+              });
 
-            svg
+              svg
               .append('g')
-                .attr('class', 'y axis')
-                .call(yAxis)
+              .attr('class', 'x axis')
+              .attr('transform', 'translate(0,' + height + ')')
+              .call(xAxis);
+
+              svg
+              .append('g')
+              .attr('class', 'y axis')
+              .call(yAxis)
               .append('text')
-                .attr('transform', 'rotate(-90)')
-                .attr('y', 6)
-                .attr('dy', '.71em')
-                .style('text-anchor', 'end')
-                .text('Impressions');
+              .attr('transform', 'rotate(-90)')
+              .attr('y', 6)
+              .attr('dy', '.71em')
+              .style('text-anchor', 'end')
+              .text('Impressions');
 
-            series = svg
-              .selectAll('.city')
-                .data(timeseries)
-              .enter()
-              .append('g')
-                .attr('class', 'city');
+              legend = svg.append('g')
+              .attr('class', 'legend')
+              .attr('transform', 'translate(50,30)')
+              .style('font-size', '12px')
+              .call(d3.legend);
 
-            series
-              .append('path')
-                .attr('class', 'line')
-                .attr('d', function (d) { return line(d.values); })
-                .style('stroke', function(d) { return color(d.name); });
+              firstTime = false;
+            } else {
+              svg = d3.select(element[0]).transition();
 
-            series
-              .append('text')
-                .datum(function (d) {
-                  return { name: reachDict[d.name], value: d.values[d.values.length - 1] };
-                })
-                .attr('transform', function (d) {
-                  return 'translate(' + x(d.value.date) + ',' + y(d.value.value) + ')';
-                })
-                .attr('x', 3)
-                .attr('dy', '.35em')
-                .text(function(d) { return d.name; });
+              svg
+                .selectAll('.x.axis')
+                  .duration(500)
+                  .call(xAxis);
+
+              svg
+                .selectAll('.y.axis')
+                  .duration(500)
+                  .call(yAxis);
+
+              timeseries.forEach(function (series) {
+                svg
+                  .select('.line-' + series.name)
+                    .duration(500)
+                    .attr('d', line(series.values));
+              });
+            }
           }
         }.bind(this));
       },

@@ -74,6 +74,7 @@ let Server = {
         response.status(404).send('Not found');
       } else {
         request.session.publishing[index] = request.body;
+        io.emit('publishing.update');
 
         response.status(200).send('OK');
       }
@@ -110,6 +111,7 @@ let Server = {
 
     app.post('/reach', function(request, response) {
       request.session.reach.push(request.body);
+      io.emit('reach.update');
 
       response.status(200).send('OK');
     });
@@ -117,6 +119,7 @@ let Server = {
     app.put('/reach/:index', function(request, response) {
       if(request.session.reach[request.params.index]) {
         request.session.reach[request.params.index] = request.body;
+        io.emit('reach.update');
 
         response.status(200).send('OK');
       } else {

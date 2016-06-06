@@ -132,7 +132,7 @@ angular
       this.list = [];
       this.update();
 
-      Socket.on('publishing.update', function () {
+      Socket.on('reach.update', function () {
         this.update();
       }.bind(this));
     };

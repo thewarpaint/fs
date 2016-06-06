@@ -24,3 +24,5 @@ Then visit [localhost:3000/app/](http://localhost:3000/app/) on your browser to 
 + Display notifications in a better way
 + Standardize API naming convention (`snake_case` vs `camelCase`)
 + Add a proper way to handle comma-separated tags like Select2
++ Optimize processing Reach items to avoid doing several passes to retrieve graph domains
++ Add a tooltip to Reach graph, as well as a proper legend
