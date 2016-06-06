@@ -28,6 +28,11 @@ angular
           controller: 'ReachNewController',
           controllerAs: 'reach'
         })
+        .when('/reach/graph', {
+          templateUrl: 'views/reach-graph.html',
+          controller: 'ReachGraphController',
+          controllerAs: 'reach'
+        })
         .otherwise('/');
     }
   ]);

@@ -127,6 +127,26 @@ angular
 
     this.init();
   }])
+  .controller('ReachGraphController', ['ReachResource', 'Socket', function (ReachResource, Socket) {
+    this.init = function () {
+      this.list = [];
+      this.update();
+
+      Socket.on('publishing.update', function () {
+        this.update();
+      }.bind(this));
+    };
+
+    this.update = function () {
+      ReachResource.query().$promise.then(function (list) {
+        this.list = list;
+      }.bind(this), function () {
+        this.message = 'Error retrieving the Reach list';
+      }.bind(this));
+    };
+
+    this.init();
+  }])
   .controller('PublishingListController', ['PublishingResource', 'Socket',
       function (PublishingResource, Socket) {
     this.init = function () {
@@ -288,8 +308,6 @@ angular
         this.message = 'Error creating a new Publishing item';
       }.bind(this));
     };
-
-    this.init();
 
     this.init();
   }]);

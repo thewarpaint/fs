@@ -15,6 +15,24 @@
     <script src="js/services.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/directives.js"></script>
+
+    <style>
+      .axis path, .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+      }
+
+      .x.axis path {
+        display: none;
+      }
+
+      .line {
+        fill: none;
+        stroke: steelblue;
+        stroke-width: 1.5px;
+      }
+    </style>
   </head>
   <body ng-app="falconSocialApp">
     <h1>Falcon Social Dashboard</h1>
