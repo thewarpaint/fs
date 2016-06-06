@@ -33,7 +33,8 @@ angular
               .x(function (d) { return x(d.date); })
               .y(function (d) { return y(d.value); }),
             series,
-            svg;
+            svg,
+            firstTime = true;
 
         svg = d3.select(element[0])
           .append('svg')
@@ -48,7 +49,6 @@ angular
           var timeseries;
 
           if(list.length) {
-
             list.forEach(function (d) {
               reachKeys.forEach(function (key) {
                 d[key][0].timestamp = parseDate(d[key][0].timestamp);
@@ -66,6 +66,8 @@ angular
                 })
               };
             });
+
+            console.log(timeseries, firstTime);
 
             x.domain([
               list[0].post_impressions[0].timestamp,
@@ -85,35 +87,12 @@ angular
               })
             ]);
 
-            svg
-              .append('g')
-                .attr('class', 'x axis')
-                .attr('transform', 'translate(0,' + height + ')')
-                .call(xAxis);
-
-            svg
-              .append('g')
-                .attr('class', 'y axis')
-                .call(yAxis)
-              .append('text')
-                .attr('transform', 'rotate(-90)')
-                .attr('y', 6)
-                .attr('dy', '.71em')
-                .style('text-anchor', 'end')
-                .text('Impressions');
-
             series = svg
               .selectAll('.city')
                 .data(timeseries)
               .enter()
               .append('g')
                 .attr('class', 'city');
-
-            series
-              .append('path')
-                .attr('class', 'line')
-                .attr('d', function (d) { return line(d.values); })
-                .style('stroke', function(d) { return color(d.name); });
 
             series
               .append('text')
@@ -126,6 +105,89 @@ angular
                 .attr('x', 3)
                 .attr('dy', '.35em')
                 .text(function(d) { return d.name; });
+
+            if(firstTime) {
+              series
+                .append('path')
+                  .attr('class', 'line')
+                  .attr('d', function (d) { return line(d.values); })
+                  .style('stroke', function(d) { return color(d.name); });
+
+              svg
+                .append('g')
+                  .attr('class', 'x axis')
+                  .attr('transform', 'translate(0,' + height + ')')
+                  .call(xAxis);
+
+              svg
+                .append('g')
+                  .attr('class', 'y axis')
+                  .call(yAxis)
+                .append('text')
+                  .attr('transform', 'rotate(-90)')
+                  .attr('y', 6)
+                  .attr('dy', '.71em')
+                  .style('text-anchor', 'end')
+                  .text('Impressions');
+
+              firstTime = false;
+            } else {
+              svg = d3.select(element[0]).transition();
+              // series = series.transition();
+              // series.transition();
+
+              // series = svg
+              //   .selectAll('.city')
+              //     // .data(timeseries)
+              //     .transition();
+
+              svg
+              // // series
+                .selectAll('.line')
+                  .duration(750)
+                  .attr('d', function (d) { console.log(d); return line(d.values); })
+                  .style('stroke', function(d) { return color(d.name); });
+
+              ///
+
+              // series = svg
+              //   .selectAll('.city')
+              //     .data(timeseries)
+              //   .enter()
+              //   .append('g')
+              //     .attr('class', 'city');
+              //
+              // series
+              //   .append('text')
+              //     .datum(function (d) {
+              //       return { name: reachDict[d.name], value: d.values[d.values.length - 1] };
+              //     })
+              //     .attr('transform', function (d) {
+              //       return 'translate(' + x(d.value.date) + ',' + y(d.value.value) + ')';
+              //     })
+              //     .attr('x', 3)
+              //     .attr('dy', '.35em')
+              //     .text(function(d) { return d.name; });
+              //
+              // series
+              //   .append('path')
+              //     .attr('class', 'line')
+              //     .attr('d', function (d) { return line(d.values); })
+              //     .style('stroke', function(d) { return color(d.name); });
+
+              ///
+
+              // svg
+              //   .selectAll('.x.axis')
+              //     .duration(750)
+              //     .call(xAxis);
+              //
+              // svg
+              //   .selectAll('.y.axis')
+              //     .duration(750)
+              //     .call(yAxis);
+            }
+
           }
         }.bind(this));
       },
