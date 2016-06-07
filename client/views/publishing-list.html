@@ -1,58 +1,66 @@
-<a href="#/">« Back to home</a>
+<a href="#/publishing/new" class="btn btn-primary"><i class="fa fa-plus"></i> New Publishing item</a>
 
-<h2>Publishing</h2>
+<h1>Publishing list</h1>
 
 <p ng-bind="reach.message"></p>
 
-<div ng-repeat="item in publishing.list" style="border-top: 1px solid grey;">
-  <div ng-show="item.id">Id: {{ item.id }}</div>
-  <div ng-show="item.content.message">Message: {{ item.content.message }}</div>
-  <div ng-show="item.content.network">Network: {{ item.content.network }}</div>
-  <div ng-show="item.content.postType">Post type: {{ item.content.postType }}</div>
-  <div ng-show="item.content.media">Media:
+<div ng-repeat="item in publishing.list" class="row publishing-item">
+  <div ng-show="item.id" class="col-xs-4">Id: {{ item.id }}</div>
+  <div ng-show="item.content.message" class="col-xs-8">Message: {{ item.content.message }}</div>
+  <div ng-show="item.content.network" class="publishing-content-network col-xs-4">
+    Network: {{ item.content.network }}</div>
+  <div ng-show="item.content.postType" class="publishing-content-post-type col-xs-4">
+    Post type: {{ item.content.postType }}</div>
+  <div ng-show="item.content.media" class="col-xs-4">Media:
     <a ng-href="{{ item.content.media.url }}" ng-bind="item.content.media.fileName"></a></div>
-  <div ng-show="item.status">Status: {{ item.status }}</div>
-  <div ng-show="item.content.scheduled">Scheduled at: {{ item.content.scheduled }}</div>
+  <div ng-show="item.status" class="col-xs-4">Status: {{ item.status }}</div>
+  <div ng-show="item.content.scheduled" class="col-xs-8">Scheduled at: {{ item.content.scheduled }}</div>
 
-  <div ng-show="item.tags.length">
+  <div ng-show="item.tags.length" class="col-xs-4">
     Tags:
-    <ul>
+    <ul class="list-commas">
       <li ng-repeat="tag in item.tags" ng-bind="tag"></li>
     </ul>
   </div>
 
-  <div ng-show="item.channels.length">
+  <div ng-show="item.channels.length" class="col-xs-4">
     Channels:
-    <ul>
+    <ul class="list-commas">
       <li ng-repeat="channel in item.channels" ng-bind="channel.name"></li>
     </ul>
   </div>
 
-  <div ng-show="item.geo.countries.length">
+  <div ng-show="item.geo.countries.length" class="col-xs-4">
     Countries:
-    <ul>
+    <ul class="list-commas">
       <li ng-repeat="country in item.geo.countries" ng-bind="country.value"></li>
     </ul>
   </div>
 
-  <div ng-show="item.geo.languages.length">
+  <div ng-show="item.geo.languages.length" class="col-xs-4">
     Languages:
-    <ul>
+    <ul class="list-commas">
       <li ng-repeat="language in item.geo.languages" ng-bind="language.value"></li>
     </ul>
   </div>
 
-  <div ng-show="item.geo.cities.length">
+  <div ng-show="item.geo.cities.length" class="col-xs-4">
     Cities:
-    <ul>
+    <ul class="list-commas">
       <li ng-repeat="city in item.geo.cities" ng-bind="city.value"></li>
     </ul>
   </div>
 
-  <div ng-show="item.geo.regions.length">
+  <div ng-show="item.geo.regions.length" class="col-xs-4">
     Regions:
-    <ul>
+    <ul class="list-commas">
       <li ng-repeat="region in item.geo.regions" ng-bind="region.value"></li>
     </ul>
+  </div>
+
+  <div class="clearfix"></div>
+
+  <div class="col-xs-12 publishing-actions">
+    <a ng-href="#/publishing/{{ item.id }}" class="btn btn-primary"><i class="fa fa-pencil"></i> Edit</a>
   </div>
 </div>

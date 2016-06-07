@@ -5,9 +5,6 @@ angular
   .config(['$locationProvider', '$routeProvider',
     function config($locationProvider, $routeProvider) {
       $routeProvider
-        .when('/', {
-          templateUrl: 'views/main.html'
-        })
         .when('/publishing', {
           templateUrl: 'views/publishing-list.html',
           controller: 'PublishingListController',
@@ -33,6 +30,6 @@ angular
           controller: 'ReachGraphController',
           controllerAs: 'reach'
         })
-        .otherwise('/');
+        .otherwise('/reach');
     }
   ]);
