@@ -15,6 +15,11 @@ angular
           controller: 'PublishingNewController',
           controllerAs: 'publishing'
         })
+        .when('/publishing/:id', {
+          templateUrl: 'views/publishing-new.html',
+          controller: 'PublishingNewController',
+          controllerAs: 'publishing'
+        })
         .when('/reach', {
           templateUrl: 'views/reach-list.html',
           controller: 'ReachListController',

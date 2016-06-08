@@ -177,7 +177,8 @@ angular
 
     this.init();
   }])
-  .controller('PublishingNewController', ['PublishingResource', function (PublishingResource) {
+  .controller('PublishingNewController', ['PublishingResource', '$routeParams',
+      function (PublishingResource, $routeParams) {
     this.statuses = [
       {
         id: 'draft',
@@ -295,7 +296,22 @@ angular
     ];
 
     this.init = function () {
-      this.item = getNewPublishingItem();
+      this.updateMode = typeof $routeParams.id !== 'undefined';
+
+      if(this.updateMode) {
+        this.submitLabel = 'Update';
+
+        PublishingResource.get({ id: $routeParams.id }).$promise.then(function (item) {
+          this.item = item;
+          this.item.tags = this.item.tags.join(', ');
+          this.item.scheduled = new Date(this.item.scheduled);
+        }.bind(this), function () {
+          this.message = 'Error retrieving the Publishing item with id: ' + $routeParams.id;
+        }.bind(this));
+      } else {
+        this.item = getNewPublishingItem();
+        this.submitLabel = 'Create';
+      }
     };
 
     this.addGeoEntry = function (key) {
@@ -303,6 +319,8 @@ angular
     };
 
     this.onSubmit = function () {
+      var promise;
+
       this.message = '';
 
       // Generate tags from a trimmed comma-separated string.
@@ -310,9 +328,23 @@ angular
         return tag.length;
       });
 
-      PublishingResource.save(this.item).$promise.then(function () {
-        this.item = getNewPublishingItem();
-        this.message = 'New Publishing item was created successfully!';
+      if(this.updateMode) {
+        promise = PublishingResource.update(this.item).$promise;
+      } else {
+        promise = PublishingResource.save(this.item).$promise;
+      }
+
+      promise.then(function () {
+        var action;
+
+        if(this.updateMode) {
+          action = 'updated';
+        } else {
+          this.item = getNewPublishingItem();
+          action = 'created';
+        }
+
+        this.message = 'New Publishing item was ' + action + ' successfully!';
       }.bind(this), function () {
         this.message = 'Error creating a new Publishing item';
       }.bind(this));

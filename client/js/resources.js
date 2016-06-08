@@ -9,6 +9,6 @@ angular
   }])
   .factory('PublishingResource', ['$resource', function ($resource) {
     return $resource('/publishing/:id', {}, {
-      update: { method: 'PUT' }
+      update: { method: 'PUT', params: { id: '@id' } }
     });
   }]);

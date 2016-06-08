@@ -8,7 +8,8 @@
   <div class="form-group">
     <label for="id-field" class="col-xs-2 control-label">Id</label>
     <div class="col-xs-10">
-      <input type="text" id="id-field" ng-model="publishing.item.id" class="form-control" required>
+      <input type="text" id="id-field" ng-model="publishing.item.id" class="form-control" required
+        ng-disabled="publishing.updateMode">
     </div>
   </div>
 
@@ -88,7 +89,8 @@
         <ul class="select-list">
           <li ng-repeat="country in publishing.item.geo.countries">
             <select ng-model="publishing.item.geo.countries[$index]" class="form-control"
-            ng-options="country as country.value for country in publishing.countries"></select>
+              ng-options="country as country.value for country in publishing.countries
+                track by country.key"></select>
           </li>
         </ul>
 
@@ -103,7 +105,8 @@
         <ul class="select-list">
           <li ng-repeat="language in publishing.item.geo.languages">
             <select ng-model="publishing.item.geo.languages[$index]" class="form-control"
-            ng-options="language as language.value for language in publishing.languages"></select>
+              ng-options="language as language.value for language in publishing.languages
+                track by language.key"></select>
           </li>
         </ul>
 
@@ -118,7 +121,7 @@
         <ul class="select-list">
           <li ng-repeat="city in publishing.item.geo.cities">
             <select ng-model="publishing.item.geo.cities[$index]" class="form-control"
-            ng-options="city as city.value for city in publishing.cities"></select>
+              ng-options="city as city.value for city in publishing.cities track by city.key"></select>
           </li>
         </ul>
 
@@ -133,7 +136,8 @@
         <ul class="select-list">
           <li ng-repeat="region in publishing.item.geo.regions">
             <select ng-model="publishing.item.geo.regions[$index]" class="form-control"
-            ng-options="region as region.value for region in publishing.regions"></select>
+              ng-options="region as region.value for region in publishing.regions
+                track by region.key"></select>
           </li>
         </ul>
 
@@ -145,7 +149,7 @@
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-primary">Create</button>
+      <button type="submit" class="btn btn-primary" ng-bind="publishing.submitLabel"></button>
     </div>
   </div>
 </form>
