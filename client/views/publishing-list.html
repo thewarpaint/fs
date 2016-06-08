@@ -1,8 +1,7 @@
 <a href="#/publishing/new" class="btn btn-primary"><i class="fa fa-plus"></i> New Publishing item</a>
 
 <h1>Publishing list</h1>
-
-<p ng-bind="reach.message"></p>
+<div class="alert alert-info" role="alert" ng-bind="publishing.message" ng-show="publishing.message"></div>
 
 <div ng-repeat="item in publishing.list" class="row publishing-item">
   <div ng-show="item.id" class="col-xs-4">Id: {{ item.id }}</div>
@@ -62,5 +61,7 @@
 
   <div class="col-xs-12 publishing-actions">
     <a ng-href="#/publishing/{{ item.id }}" class="btn btn-primary"><i class="fa fa-pencil"></i> Edit</a>
+    <button type="button" class="btn btn-danger" ng-click="publishing.delete(item)">
+      <i class="fa fa-trash"></i> Delete</button>
   </div>
 </div>

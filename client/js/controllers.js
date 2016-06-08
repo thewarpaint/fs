@@ -166,6 +166,15 @@ angular
       }.bind(this));
     };
 
+    this.delete = function (item) {
+      PublishingResource.delete({ id: item.id }).$promise.then(function () {
+        this.message = 'Publishing item was successfully deleted!';
+        this.list.splice(this.list.indexOf(item), 1);
+      }.bind(this), function () {
+        this.message = 'Error deleting the Publishing item';
+      }.bind(this));
+    }
+
     this.init();
   }])
   .controller('PublishingNewController', ['PublishingResource', function (PublishingResource) {
