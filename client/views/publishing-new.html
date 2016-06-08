@@ -1,98 +1,151 @@
 <a href="#/publishing" class="btn btn-default"><i class="fa fa-angle-double-left"></i>
   Back to Publishing list</a>
 
-<h2>Publishing</h2>
+<h1>Create new Publishing item</h1>
+<div class="alert alert-info" role="alert" ng-bind="publishing.message" ng-show="publishing.message"></div>
 
-<form ng-submit="publishing.onSubmit()">
-  <h3>Create new Publishing item</h3>
+<form ng-submit="publishing.onSubmit()" class="form-horizontal">
+  <div class="form-group">
+    <label for="id-field" class="col-xs-2 control-label">Id</label>
+    <div class="col-xs-10">
+      <input type="text" id="id-field" ng-model="publishing.item.id" class="form-control">
+    </div>
+  </div>
 
-  <p ng-bind="publishing.message"></p>
+  <div class="form-group">
+    <label for="content-media-scheduled-field" class="col-xs-2 control-label">Scheduled at</label>
+    <div class="col-xs-10">
+      <input type="datetime-local" id="scheduled-field" class="form-control"
+        ng-model="publishing.item.scheduled">
+    </div>
+  </div>
 
-  <label for="id-field">Id</label>
-  <input type="text" id="id-field" ng-model="publishing.item.id">
+  <div class="form-group">
+    <label for="status-field" class="col-xs-2 control-label">Status</label>
+    <div class="col-xs-10">
+      <select id="status-field" ng-model="publishing.item.status" class="form-control"
+      ng-options="status.id as status.label for status in publishing.statuses"></select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="tags-field" class="col-xs-2 control-label">Tags (separate with commas)</label>
+    <div class="col-xs-10">
+      <input type="text" id="tags-field" ng-model="publishing.item.tags" class="form-control">
+    </div>
+  </div>
 
   <fieldset>
     <legend>Content</legend>
 
-    <label for="content-message-field">Message</label>
-    <textarea rows="8" cols="40" id="content-message-field"
-      ng-model="publishing.item.content.message"></textarea>
+    <div class="form-group">
+      <label for="content-message-field" class="col-xs-2 control-label">Message</label>
+      <div class="col-xs-10">
+        <textarea rows="8" cols="40" id="content-message-field" class="form-control"
+          ng-model="publishing.item.content.message"></textarea>
+      </div>
+    </div>
 
-    <label for="content-network-field">Network</label>
-    <select id="content-network-field" ng-model="publishing.item.content.network"
-      ng-options="network.id as network.label for network in publishing.networks">
-    </select>
+    <div class="form-group">
+      <label for="content-network-field" class="col-xs-2 control-label">Network</label>
+      <div class="col-xs-10">
+        <select id="content-network-field" ng-model="publishing.item.content.network" class="form-control"
+          ng-options="network.id as network.label for network in publishing.networks"></select>
+      </div>
+    </div>
 
-    <label for="content-post-type-field">Post type</label>
-    <select id="content-post-type-field" ng-model="publishing.item.content.postType"
-      ng-options="postType.id as postType.label for postType in publishing.postTypes"></select>
+    <div class="form-group">
+      <label for="content-post-type-field" class="col-xs-2 control-label">Post type</label>
+      <div class="col-xs-10">
+        <select id="content-post-type-field" ng-model="publishing.item.content.postType" class="form-control"
+          ng-options="postType.id as postType.label for postType in publishing.postTypes"></select>
+      </div>
+    </div>
 
-    <label for="content-media-filename-field">Media filename</label>
-    <input type="text" id="content-media-filename-field" ng-model="publishing.item.content.media.fileName">
+    <div class="form-group">
+      <label for="content-media-filename-field" class="col-xs-2 control-label">Media filename</label>
+      <div class="col-xs-10">
+        <input type="text" id="content-media-filename-field" ng-model="publishing.item.content.media.fileName"
+          class="form-control">
+      </div>
+    </div>
 
-    <label for="content-media-url-field">Media URL</label>
-    <input type="url" id="content-media-url-field" ng-model="publishing.item.content.media.url">
+    <div class="form-group">
+      <label for="content-media-url-field" class="col-xs-2 control-label">Media URL</label>
+      <div class="col-xs-10">
+        <input type="url" id="content-media-url-field" ng-model="publishing.item.content.media.url"
+          class="form-control">
+      </div>
+    </div>
   </fieldset>
-
-  <label for="content-media-scheduled-field">Scheduled at</label>
-  <input type="datetime-local" id="scheduled-field" ng-model="publishing.item.scheduled">
-
-  <label for="status-field">Status</label>
-  <select id="status-field" ng-model="publishing.item.status"
-    ng-options="status.id as status.label for status in publishing.statuses"></select>
-
-  <label for="tags-field">Tags (separate with commas)</label>
-  <input type="text" id="tags-field" ng-model="publishing.item.tags">
 
   <fieldset>
     <legend>Geo</legend>
 
-    <div>
-      <label>Countries</label>
-      <button type="button" ng-click="publishing.addGeoEntry('countries')">Add country entry</button>
-      <ul>
-        <li ng-repeat="country in publishing.item.geo.countries">
-          <select ng-model="publishing.item.geo.countries[$index]"
+    <div class="form-group">
+      <label class="col-xs-2 control-label">Countries</label>
+      <div class="col-xs-10">
+        <ul class="select-list">
+          <li ng-repeat="country in publishing.item.geo.countries">
+            <select ng-model="publishing.item.geo.countries[$index]" class="form-control"
             ng-options="country as country.value for country in publishing.countries"></select>
-        </li>
-      </ul>
+          </li>
+        </ul>
+
+        <button type="button" class="btn btn-default" ng-click="publishing.addGeoEntry('countries')">
+          Add country entry</button>
+      </div>
     </div>
 
-    <div>
-      <label>Languages</label>
-      <button type="button" ng-click="publishing.addGeoEntry('languages')">Add language entry</button>
-      <ul>
-        <li ng-repeat="language in publishing.item.geo.languages">
-          <select ng-model="publishing.item.geo.languages[$index]"
-          ng-options="language as language.value for language in publishing.languages"></select>
-        </li>
-      </ul>
+    <div class="form-group">
+      <label class="col-xs-2 control-label">Languages</label>
+      <div class="col-xs-10">
+        <ul class="select-list">
+          <li ng-repeat="language in publishing.item.geo.languages">
+            <select ng-model="publishing.item.geo.languages[$index]" class="form-control"
+            ng-options="language as language.value for language in publishing.languages"></select>
+          </li>
+        </ul>
+
+        <button type="button" class="btn btn-default" ng-click="publishing.addGeoEntry('languages')">
+          Add language entry</button>
+      </div>
     </div>
 
-    <div>
-      <label>Cities</label>
-      <button type="button" ng-click="publishing.addGeoEntry('cities')">Add city entry</button>
-      <ul>
-        <li ng-repeat="city in publishing.item.geo.cities">
-          <select ng-model="publishing.item.geo.cities[$index]"
-          ng-options="city as city.value for city in publishing.cities"></select>
-        </li>
-      </ul>
+    <div class="form-group">
+      <label class="col-xs-2 control-label">Cities</label>
+      <div class="col-xs-10">
+        <ul class="select-list">
+          <li ng-repeat="city in publishing.item.geo.cities">
+            <select ng-model="publishing.item.geo.cities[$index]" class="form-control"
+            ng-options="city as city.value for city in publishing.cities"></select>
+          </li>
+        </ul>
+
+        <button type="button" class="btn btn-default" ng-click="publishing.addGeoEntry('cities')">
+          Add city entry</button>
+      </div>
     </div>
 
-    <div>
-      <label>Regions</label>
-      <button type="button" ng-click="publishing.addGeoEntry('regions')">Add region entry</button>
-      <ul>
-        <li ng-repeat="region in publishing.item.geo.regions">
-          <select ng-model="publishing.item.geo.regions[$index]"
-          ng-options="region as region.value for region in publishing.regions"></select>
-        </li>
-      </ul>
+    <div class="form-group">
+      <label class="col-xs-2 control-label">Regions</label>
+      <div class="col-xs-10">
+        <ul class="select-list">
+          <li ng-repeat="region in publishing.item.geo.regions">
+            <select ng-model="publishing.item.geo.regions[$index]" class="form-control"
+            ng-options="region as region.value for region in publishing.regions"></select>
+          </li>
+        </ul>
+
+        <button type="button" class="btn btn-default" ng-click="publishing.addGeoEntry('regions')">
+          Add region entry</button>
+      </div>
     </div>
   </fieldset>
 
-  <button type="submit">Create</button>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-primary">Create</button>
+    </div>
+  </div>
 </form>
-
-{{ publishing.item | json }}
